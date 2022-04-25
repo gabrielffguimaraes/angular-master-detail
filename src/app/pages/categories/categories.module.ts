@@ -5,7 +5,6 @@ import { CategoriesRoutingModule } from './categories-routing.module';
 import { CategoriesListComponent } from './categories-list/categories-list.component';
 import { CategoryFormComponent } from './category-form/category-form.component';
 
-
 @NgModule({
   declarations: [
     CategoriesListComponent,

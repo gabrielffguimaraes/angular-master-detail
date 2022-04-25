@@ -14,10 +14,13 @@ export class CategoryService {
   constructor(private http:HttpClient) {}
 
   getAll(): Observable<Category[]> {
-    return this.http.get(this.apiPath).pipe(
-      catchError(this.handleError),
+    return this.http.get<Category[]>(this.apiPath).pipe(
       map(this.jsonDataToCategories)
     )
+    /*return this.http.get<Category[]>(this.apiPath).pipe(
+      catchError(this.handleError),
+      map(this.jsonDataToCategories)
+    )*/
   }
   getById(id: number): Observable<Category> {
     return this.http.get(`${this.apiPath}/${id}`).pipe(

@@ -20,14 +20,14 @@
     </tr>
   </thead>
   <tbody class="border-top-0">
-  <tr>
+  <tr *ngFor="let category of categories">
     <td>
-      <strong>Categoria 1</strong><br/>
-      <small class="text-muted">description</small>
+      <strong>{{category.name}}</strong><br/>
+      <small class="text-muted">{{category.description}}</small>
     </td>
     <td class="text-center">
       <button class="btn btn-sm btn-outline-primary me-2" [routerLink]="[12,'edit']">Editar</button>
-      <button class="btn btn-sm btn-outline-danger" (click)="0">Excluir</button>
+      <button class="btn btn-sm btn-outline-danger" (click)="deleteCategory(category)">Excluir</button>
     </td>
   </tr>
   </tbody>
