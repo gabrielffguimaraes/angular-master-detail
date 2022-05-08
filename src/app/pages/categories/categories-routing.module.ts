@@ -4,9 +4,9 @@ import {CategoriesListComponent} from "./categories-list/categories-list.compone
 import {CategoryFormComponent} from "./category-form/category-form.component";
 
 const routes: Routes = [
-  {path:'' , pathMatch:'full' , component:CategoriesListComponent},
-  {path:'new' , pathMatch:'full' , component:CategoryFormComponent},
-  {path:':id/edit' , pathMatch:'full' , component:CategoryFormComponent}
+  {path:''  , component:CategoriesListComponent},
+  {path:'new'  , component:CategoryFormComponent},
+  {path:':id/edit'  , component:CategoryFormComponent}
 ];
 
 @NgModule({
