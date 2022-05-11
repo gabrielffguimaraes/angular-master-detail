@@ -19,39 +19,46 @@ export class CategoryFormComponent implements OnInit,AfterContentChecked {
   submittingForm: boolean = false;
   category:Category = new Category();
 
-  constructor(private categoryService:CategoryService,private route:ActivatedRoute,private router:Router,) { }
+  constructor(private categoryService:CategoryService,
+              private route:ActivatedRoute,
+              private router:Router,
+              private formBuilder:FormBuilder) { }
 
   ngOnInit(): void {
     /*FACTORY*/
     this.setCurrentAction();
     this.buildCategoryForm();
     this.loadCategory();
-    this.formGroup = new FormBuilder().group({
-      name:[null,Validators.min(2)],
-      description:[null]
-    })
   }
   // PRIVATE
   private setCurrentAction():void {
-    // @ts-ignore
-    this.route.paramMap
-      .pipe(
-        switchMap(params => (params.has('id')) ? this.categoryService.getById(parseInt(<string>params.get('id'))) : EMPTY),
-      ).subscribe((category:Category) => {
-          console.log(category);
-      }, (error) => {
-          console.log(error);
-      }, () => {
-
-      });
+    if(this.route.snapshot.url[0].path === "new") {
+      this.currentAction = "new";
+    } else {
+      this.currentAction = "edit";
+    }
   }
   private buildCategoryForm():void {
-
+    this.formGroup = this.formBuilder.group({
+      id:[null],
+      name:[null,Validators.min(2)],
+      description:[null]
+    });
   }
   private loadCategory():void {
-
+    this.route.paramMap
+      .pipe(
+        switchMap(
+          (params)=> (params.has('id') ? this.categoryService.getById(parseInt(<string>params.get('id'))):EMPTY)
+        )
+      ).subscribe((category:Category) => {
+        this.category = category;
+        this.formGroup.patchValue(this.category);
+      },(error) => {
+        alert("Ocorreu um erro por favor tente mais tarde .")
+    });
   }
-
   ngAfterContentChecked(): void {
+
   }
 }
