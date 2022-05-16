@@ -2,7 +2,7 @@
   <ol class="breadcrumb m-0">
     <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
     <li class="breadcrumb-item"><a routerLink="/categories">Categorias</a></li>
-    <li class="breadcrumb-item active">  Nova Categoria </li>
+    <li class="breadcrumb-item active">  {{pageTitle}} </li>
   </ol>
 </nav>
 <div class="row  m-0 p-0 mb-3" >
@@ -16,7 +16,7 @@
     </button>
   </div>
 </div>
-<form [formGroup]="formGroup">
+<form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
 
   <div class="card">
     <div class="card-header">
@@ -27,6 +27,10 @@
         <div class="form-group col-md-4">
           <label for="name">Nome</label>
           <input class="form-control" type="text" formControlName="name" id="name"/>
+          <div class="text-danger" *ngIf="formGroup.get('name')?.invalid && formGroup.get('name')?.touched">
+            <div *ngIf="formGroup.get('name')?.errors?.required"> * Campo obrigatório</div>
+            <div *ngIf="formGroup.get('name')?.errors?.minlength"> * Pelo menos 4 caracteres</div>
+          </div>
         </div>
         <div class="form-group col-md-8">
           <label for="description">Descrição</label>
@@ -35,7 +39,7 @@
       </div>
     </div>
   </div>
-  <button class="btn btn-primary mt-3 float-right">
+  <button [disabled]="submittingForm" class="btn btn-primary mt-3 float-right">
     Salvar
   </button>
 </form>

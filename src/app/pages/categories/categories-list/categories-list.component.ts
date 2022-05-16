@@ -17,6 +17,7 @@ export class CategoriesListComponent implements OnInit {
       error => console.log(error)
     )
   }
+
   deleteCategory(category:Category) {
     if(confirm("Deseja realmente excluir ?")) {
       this.categoryService.delete(category.id).subscribe(
